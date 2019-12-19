@@ -14,6 +14,8 @@ const NavListItem = styled.li`
 `;
 
 const Navigation: React.FC = () => {
+	const isReportEditionActive = (match, location) => location.pathname.includes('report');
+
 	return (
 		<nav>
 			<NavList>
@@ -34,8 +36,9 @@ const Navigation: React.FC = () => {
 										 fontWeight: "bold",
 										 color: "black"
 									 }}
+									 isActive={isReportEditionActive}
 					>
-						New report
+						Report Edition
 					</NavLink>
 				</NavListItem>
 			</NavList>

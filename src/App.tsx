@@ -5,7 +5,7 @@ import {
   Route,
 } from "react-router-dom";
 import ReportDetails from "./containers/ReportDetails";
-import ReportList from "./containers/ReportList";
+import ReportListWithSearch from "./containers/ReportListWithSearch";
 import Navigation from "./components/Navigation";
 
 const App: React.FC = () => {
@@ -18,7 +18,7 @@ const App: React.FC = () => {
               <ReportDetails />
             </Route>
             <Route path="/">
-              <ReportList />
+              <ReportListWithSearch />
             </Route>
           </Switch>
         </main>

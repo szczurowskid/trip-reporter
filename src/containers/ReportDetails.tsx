@@ -1,40 +1,62 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
-import useGetCountries from '../hooks/useGetCountries';
-import { addReportToStorage } from '../utils/localStorage';
+import useFetchCountries from '../hooks/useFetchCountries';
+import { addReportToStorage, editReportFromStorage, getSingleReportFromStorage} from '../utils/localStorage';
+import { useHistory, useParams } from "react-router-dom";
+import MonthPicker from '../components/form/MonthPicker';
+import RadioBox from '../components/form/RadioBox';
+import NumberField from '../components/form/NumberField';
+import TextArea from "../components/form/Textarea";
+import CheckboxBoxGroup from "../components/form/CheckboxGroup";
+
+const friendsList = ['Samantha', 'Claire', 'Tom'];
+const emptyReport = {
+	country: { value: "POL", label: "Poland" },
+	tripStartDate: "",
+	tripDuration: "",
+	tripDescription: "",
+	friendsList: [],
+	destination: "",
+	id: Date.now()
+};
 
 const ReportDetails: React.FC = () => {
+	const history = useHistory();
+	const { id } = useParams();
+	const countries = useFetchCountries();
+	const isAddMode = id === 'add';
 
-	const countries = useGetCountries();
+	const [state, setState] = useState(emptyReport);
 
-	const [state, setState] = useState({
-		country: { value: "POL", label: "Poland" },
-		tripStart: "",
-		tripDuration: "",
-		friends: [],
-		destination: ""
-	});
+	useEffect(() => {
+		if (isAddMode) {
+			setState(emptyReport);
+		} else {
+			setState(getSingleReportFromStorage(id));
+		}
+	}, [id, isAddMode]);
 
-	const handleSelectChange = (country: any) => {
-		setState({
-			...state,
-			country
-		});
-	};
+	const handleSelectChange = (country: any) => setState({ ...state, country });
+
+	const handleCheckboxChange = (value: string[], name: string) => setState({ ...state, [name]: value });
 
 	const handleChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		const { value, name } = evt.target;
-		const newValue = name === "friends" ? [...state.friends, value] : value;
 		setState({
 			...state,
-			[name]: newValue
+			[name]: value
 		});
 	};
 
 	const handleSubmit = () => {
-		addReportToStorage([state]);
+		if (isAddMode) {
+			addReportToStorage([state]);
+		} else {
+			editReportFromStorage(state)
+		}
+		history.push('/');
 	};
-	console.log(state);
+
 	return (
 		<React.Fragment>
 			<Select options={countries}
@@ -44,31 +66,33 @@ const ReportDetails: React.FC = () => {
 							placeholder="Select Country..."
 							onChange={handleSelectChange}
 			/>
-			<label htmlFor="trip-start">Start of the trip:</label>
-			<input type="month" id="trip-start" name="tripStart" onChange={handleChange} />
+			<MonthPicker id="trip-start"
+									 name="tripStartDate"
+									 value={state.tripStartDate}
+									 onChangeInput={handleChange}
+			/>
+			<NumberField id="trip-duration"
+									 name="tripDuration"
+									 value={state.tripDuration}
+									 label="Trip duration (days):"
+									 onChangeInput={handleChange}
+			/>
+			<TextArea id="trip-description"
+								name="tripDescription"
+								value={state.tripDescription}
+								onChangeInput={handleChange}
+			/>
+			<CheckboxBoxGroup ids={friendsList}
+												name="friendsList"
+												value={state.friendsList}
+												onChangeInput={handleCheckboxChange}
+			/>
+			<RadioBox ids={['Transit', 'Destination']}
+								name="destination"
+								value={state.destination}
+								onChangeInput={handleChange}/>
 
-			<label htmlFor="trip-duration">Trip duration:</label>
-			<input type="number" id="trip-duration" name="tripDuration" onChange={handleChange} />
-
-			<label htmlFor="trip-description">Trip description:</label>
-			<textarea id="trip-description" name="tripDescription" rows={5} cols={33} onChange={handleChange} />
-
-			<input type="checkbox" name="friends" id="Samantha" value="Samantha" onChange={handleChange} />
-			<label htmlFor="Samantha">Samantha</label>
-
-			<input type="checkbox" name="friends" id="Claire" value="Claire" onChange={handleChange} />
-			<label htmlFor="Claire">Claire</label>
-
-			<input type="checkbox" name="friends" id="Simon" value="Simon" onChange={handleChange} />
-			<label htmlFor="Simon">Simon</label>
-
-			<input type="radio" id="goal" name="destination" value="goal" onChange={handleChange} />
-			<label htmlFor="goal">Goal</label>
-
-			<input type="radio" id="transit" name="destination" value="transit" onChange={handleChange} />
-			<label htmlFor="transit">Destination</label>
-
-			<button onClick={handleSubmit}>Add report</button>
+			<button onClick={handleSubmit}>{isAddMode ? 'Add': 'Edit'} report</button>
 
 		</React.Fragment>
 	);

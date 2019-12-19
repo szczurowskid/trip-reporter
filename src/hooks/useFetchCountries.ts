@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../utils/api";
 
-const useGetCountries = () => {
+const useFetchCountries = () => {
 	const [ countries, setCountries ] = useState([]);
 
 	useEffect( () => {
@@ -18,4 +18,4 @@ const useGetCountries = () => {
 	return countries;
 };
 
-export default useGetCountries;
+export default useFetchCountries;
