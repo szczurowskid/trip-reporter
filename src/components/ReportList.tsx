@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import ReportPreview from './ReportPreview';
 import { ReportListType } from "../types";
-import { useHistory } from 'react-router-dom';
+import { useHistory} from 'react-router-dom';
 
-const List = styled.div`
-  list-style-type: none;
+const NoReportsInfo = styled.div`
+	margin: 1rem 0;
 `;
 
 const ReportList: React.FC<ReportListType> = ({ reports, handleDeleteClick }) => {
@@ -15,7 +15,7 @@ const ReportList: React.FC<ReportListType> = ({ reports, handleDeleteClick }) =>
 	};
 
 	return (
-		<List>
+		<div>
 			{reports.length ?
 				reports.map((report, idx) =>
 					<ReportPreview key={idx}
@@ -23,8 +23,8 @@ const ReportList: React.FC<ReportListType> = ({ reports, handleDeleteClick }) =>
 												 handleDeleteClick={handleDeleteClick}
 												 handleReportClick={() => onReportClick(report.id)}
 				/>)
-				: 'No reports'}
-		</List>
+				: <NoReportsInfo>No reports. In order to add report, click <em>New/Edit Report</em>.</NoReportsInfo>}
+		</div>
 	);
 };
 

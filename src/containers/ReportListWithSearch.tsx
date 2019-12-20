@@ -3,6 +3,17 @@ import { getReportsFromStorage, removeReportFromStorage } from '../utils/localSt
 import ReportList from '../components/ReportList';
 import { useDebouncedCallback } from 'use-debounce';
 import { ReportType } from '../types';
+import styled from 'styled-components';
+
+const SearchBar = styled.input`
+  border:1px solid #cfcfcf;
+	height: 2rem;
+	width: 30vw;
+	padding: 0 .5rem;
+	line-height: 1;
+  outline: 0;
+  font-size: .8rem;
+`;
 
 const ReportListWithSearch: React.FC = () => {
 	const [reports, setReports] = useState([]);
@@ -32,9 +43,9 @@ const ReportListWithSearch: React.FC = () => {
 
 	return (
 		<React.Fragment>
-			<input type="search"
-						 placeholder="Search reports..."
-						 onChange={e => debouncedCallback(e.target.value)} />
+			<SearchBar type="search"
+						  placeholder="Search reports..."
+						  onChange={e => debouncedCallback(e.target.value)} />
 			<ReportList reports={filteredReports || reports} handleDeleteClick={onDeleteClick}/>
 		</React.Fragment>
 

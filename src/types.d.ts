@@ -4,7 +4,7 @@ export interface ReportType {
 		label?: string
 	},
 	tripDuration?: string,
-	tripStart?: string,
+	tripStartDate?: string,
 	tripDescription?: string,
 	friendsList?: string[],
 	tripDestination?: string,
@@ -12,6 +12,11 @@ export interface ReportType {
 	id?: number,
 	handleDeleteClick?: any,
 	handleReportClick?: any
+}
+
+interface SelectBoxValue {
+	value?: string,
+	label?: string
 }
 
 export interface ReportTypeProps {
@@ -31,5 +36,23 @@ export interface FormInputType {
 	label?: string,
 	id?: string,
 	ids?: string[],
-	name?: string
+	name?: string,
+	title?: string
+	options?: SelectBoxValue
+}
+
+export interface SelectBoxType {
+	value?: SelectBoxValue,
+	onChangeInput?: any,
+	id?: string,
+	name?: string,
+	title?: string,
+	placeholder?: string,
+	options?: Array<SelectBoxValue>
+}
+
+export interface ButtonType {
+	onClick: any,
+	label?: string,
+	variant?: string
 }

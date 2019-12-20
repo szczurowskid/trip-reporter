@@ -7,12 +7,18 @@ import {
 import ReportDetails from "./containers/ReportDetails";
 import ReportListWithSearch from "./containers/ReportListWithSearch";
 import Navigation from "./components/Navigation";
+import styled from 'styled-components';
+
+const Main = styled.main`
+  width: 100vw;
+  margin-left: 1rem;
+`;
 
 const App: React.FC = () => {
   return (
       <Router>
         <Navigation/>
-        <main>
+        <Main>
           <Switch>
             <Route path="/report/:id">
               <ReportDetails />
@@ -21,7 +27,7 @@ const App: React.FC = () => {
               <ReportListWithSearch />
             </Route>
           </Switch>
-        </main>
+        </Main>
       </Router>
   );
 }

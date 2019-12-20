@@ -1,17 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FormInputType } from '../../types';
+import FormFieldWrapper from './FormFieldWrapper';
 
-const MonthPickerWrapper = styled.div`
-  
+const MonthPickerInput = styled.input`
+	margin-left: .5rem;
 `;
 
-const MonthPicker: React.FC<FormInputType> = ({ id, name, value, onChangeInput }) => {
+const MonthPicker: React.FC<FormInputType> = ({ id, name, title, value, onChangeInput }) => {
 	return (
-		<MonthPickerWrapper>
-			<label htmlFor={id}>Start of the trip:</label>
-			<input type="month" id={id} name={name} value={value} onChange={onChangeInput} />
-		</MonthPickerWrapper>
+		<FormFieldWrapper>
+			<label htmlFor={id}><em>{title}</em></label>
+			<MonthPickerInput type="month" id={id} name={name} value={value} onChange={onChangeInput} />
+		</FormFieldWrapper>
 	);
 };
 

@@ -1,4 +1,8 @@
+#Trip reporter
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+Local storage was used in order to persist state after page reload.
 
 ## Available Scripts
 

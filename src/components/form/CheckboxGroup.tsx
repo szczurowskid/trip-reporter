@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FormInputType } from '../../types';
+import FormFieldWrapper from './FormFieldWrapper';
 
-const CheckboxBoxGroupWrapper = styled.div`
-  
+const CheckboxLabel = styled.label`
+	display: block;
+	margin: .5rem 0;
 `;
 
-const CheckboxBoxGroup: React.FC<FormInputType> = ({ ids, name, value, onChangeInput }) => {
+const CheckboxBoxGroup: React.FC<FormInputType> = ({ ids, name, title, value, onChangeInput }) => {
 	const handleOnChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
 		let newValue: any = value;
 
@@ -20,14 +22,15 @@ const CheckboxBoxGroup: React.FC<FormInputType> = ({ ids, name, value, onChangeI
 	};
 
 	return (
-		<CheckboxBoxGroupWrapper>
+		<FormFieldWrapper>
+			<em>{title}</em>
 			{ids && ids.map(id => (
-				<label key={id} htmlFor={id}>
-					{id}
+				<CheckboxLabel key={id} htmlFor={id}>
 					<input type="checkbox" name={name} id={id} value={id} checked={value.includes(id)} onChange={handleOnChange} />
-				</label>
+					{id}
+				</CheckboxLabel>
 			))}
-		</CheckboxBoxGroupWrapper>
+		</FormFieldWrapper>
 	);
 };
 

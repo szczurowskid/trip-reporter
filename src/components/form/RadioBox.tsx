@@ -1,21 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FormInputType } from '../../types';
+import FormFieldWrapper from './FormFieldWrapper';
 
-const RadioBoxWrapper = styled.div`
-  
+const RadioInputLabel = styled.label`
+	display: block;
+	margin: .5rem 0;
 `;
 
-const RadioBox: React.FC<FormInputType> = ({ ids, name, value, onChangeInput }) => {
+const RadioBox: React.FC<FormInputType> = ({ ids, name, title, value, onChangeInput }) => {
 	return (
-		<RadioBoxWrapper>
+		<FormFieldWrapper>
+			<em>{title}</em>
 			{ids && ids.map(id => (
-				<label key={id} htmlFor={id}>
+				<RadioInputLabel key={id} htmlFor={id}>
+					<input type="radio"
+											id={id}
+											name={name}
+											value={id}
+											checked={value.includes(id)}
+											onChange={onChangeInput}
+					/>
 					{id}
-					<input type="radio" id={id} name={name} value={id} checked={value.includes(id)} onChange={onChangeInput} />
-				</label>
+				</RadioInputLabel>
 			))}
-		</RadioBoxWrapper>
+		</FormFieldWrapper>
 	);
 };
 
