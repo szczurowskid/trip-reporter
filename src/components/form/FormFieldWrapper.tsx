@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FormInputType } from '../../types';
 
 const FormField = styled.div`
   margin: 2rem 0;
@@ -10,7 +9,7 @@ const FormField = styled.div`
   }
 `;
 
-const FormFieldWrapper: React.FC<FormInputType> = (props) => {
+const FormFieldWrapper: React.FC = (props) => {
 	return (
 		<FormField>
 			{props.children}

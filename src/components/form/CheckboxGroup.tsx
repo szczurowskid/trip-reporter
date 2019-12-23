@@ -8,17 +8,17 @@ const CheckboxLabel = styled.label`
 	margin: .5rem 0;
 `;
 
-const CheckboxBoxGroup: React.FC<FormInputType> = ({ ids, name, title, value, onChangeInput }) => {
+const CheckboxBoxGroup: React.FC<FormInputType> = ({ ids, name, title, checkedValues, onChangeCheckbox }) => {
 	const handleOnChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-		let newValue: any = value;
+		let newValue;
 
 		if (evt.target.checked) {
-			newValue = [...newValue, evt.target.value];
+			newValue = [...checkedValues, evt.target.value];
 		} else {
-			newValue = newValue.filter((val: string) => val !== evt.target.value)
+			newValue = checkedValues.filter((val: string) => val !== evt.target.value)
 		}
 
-		onChangeInput(newValue, name)
+		onChangeCheckbox(name, newValue);
 	};
 
 	return (
@@ -26,7 +26,7 @@ const CheckboxBoxGroup: React.FC<FormInputType> = ({ ids, name, title, value, on
 			<em>{title}</em>
 			{ids && ids.map(id => (
 				<CheckboxLabel key={id} htmlFor={id}>
-					<input type="checkbox" name={name} id={id} value={id} checked={value.includes(id)} onChange={handleOnChange} />
+					<input type="checkbox" name={name} id={id} value={id} checked={checkedValues.includes(id)} onChange={handleOnChange} />
 					{id}
 				</CheckboxLabel>
 			))}

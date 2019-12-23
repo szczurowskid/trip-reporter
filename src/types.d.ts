@@ -1,58 +1,57 @@
-export interface ReportType {
-	country?: {
-		value?: string,
-		label?: string
-	},
-	tripDuration?: string,
-	tripStartDate?: string,
-	tripDescription?: string,
-	friendsList?: string[],
-	tripDestination?: string,
-	data?: any,
-	id?: number,
-	handleDeleteClick?: any,
-	handleReportClick?: any
-}
+import React from "react";
 
 interface SelectBoxValue {
-	value?: string,
-	label?: string
+	value: string,
+	label: string
+}
+
+export interface ReportType {
+	country: SelectBoxValue,
+	tripDuration: string,
+	tripStartDate: string,
+	tripDescription: string,
+	friendsList: string[],
+	tripDestination: string,
+	id: number,
+	handleDeleteClick?: (id: number) => void,
+	handleReportClick?: () => void
 }
 
 export interface ReportTypeProps {
 	data: ReportType
-	handleDeleteClick?: any,
-	handleReportClick?: any
+	handleDeleteClick: (id: number) => void,
+	handleReportClick: () => void
 }
 
 export interface ReportListType {
 	reports: Array<ReportType>
-	handleDeleteClick?: (id: number) => void
+	handleDeleteClick: (id: number) => void
 }
 
 export interface FormInputType {
-	value?: string | string[],
-	onChangeInput?: any,
+	value?: string,
+	checkedValues?: string[];
+	onChangeInput?: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
+	onChangeCheckbox?: (name: string, value: string[]) => void,
 	label?: string,
 	id?: string,
 	ids?: string[],
-	name?: string,
+	name: string,
 	title?: string
 	options?: SelectBoxValue
 }
 
 export interface SelectBoxType {
-	value?: SelectBoxValue,
-	onChangeInput?: any,
-	id?: string,
-	name?: string,
-	title?: string,
+	value: SelectBoxValue,
+	onChangeInput: (SelectBoxValue) => void,
+	name: string,
+	title: string,
 	placeholder?: string,
-	options?: Array<SelectBoxValue>
+	options: Array<SelectBoxValue>
 }
 
 export interface ButtonType {
-	onClick: any,
+	onClick: () => void,
 	label?: string,
 	variant?: string
 }

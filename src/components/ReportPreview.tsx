@@ -13,7 +13,8 @@ const Article = styled.article`
 	cursor: pointer;
 	
 	&:hover {
-		transform: scale(1.01);
+		transform: scale(1.005);
+		border-color: green;
 		transition: .5s;
 	}
 `;

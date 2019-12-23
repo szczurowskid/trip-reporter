@@ -9,6 +9,7 @@ import TextArea from '../components/form/Textarea';
 import SelectBox from '../components/form/SelectBox';
 import CheckboxBoxGroup from '../components/form/CheckboxGroup';
 import Button from '../components/Button';
+import { SelectBoxValue } from "../types";
 
 const friendsList = ['Samantha', 'Claire', 'Tom'];
 const emptyReport = {
@@ -37,9 +38,9 @@ const ReportDetails: React.FC = () => {
 		}
 	}, [id, isAddMode]);
 
-	const handleSelectChange = (country: any) => setState({ ...state, country });
+	const handleSelectChange = (country: SelectBoxValue) => setState({ ...state, country });
 
-	const handleCheckboxChange = (value: string[], name: string) => setState({ ...state, [name]: value });
+	const handleCheckboxChange = (name: string, value: string[]) => setState({ ...state, [name]: value });
 
 	const handleChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		const { value, name } = evt.target;
@@ -88,8 +89,8 @@ const ReportDetails: React.FC = () => {
 			<CheckboxBoxGroup ids={friendsList}
 												name="friendsList"
 												title="Travel companions:"
-												value={state.friendsList}
-												onChangeInput={handleCheckboxChange}
+												checkedValues={state.friendsList}
+												onChangeCheckbox={handleCheckboxChange}
 			/>
 			<RadioBox ids={['Destination', 'Transit']}
 								name="tripDestination"
