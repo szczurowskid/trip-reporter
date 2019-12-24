@@ -4,6 +4,7 @@ import { ReportTypeProps } from '../types';
 import Button from './Button';
 
 const Article = styled.article`
+	position: relative;
 	width: 90vw;
 	background-color: white;
 	margin-top: 1rem;
@@ -28,10 +29,26 @@ const TripStartDate = styled.p`
 	font-size: .8rem;
 `;
 
+const RightTopCornerElement = styled.div`
+  display: none;
+	position: absolute;
+	top: 0;
+	right: 0;
+	
+	${Article}:hover & {
+		display: block;
+	}
+`;
+
 const ReportPreview: React.FC<ReportTypeProps> = ({ data, handleDeleteClick, handleReportClick }) => {
 	const { country, tripDescription, tripDestination, tripDuration, tripStartDate, friendsList, id } = data;
 
 	const renderTripDuration = () => `(duration: ${tripDuration} day${tripDuration === '1' ? '' : 's'})`;
+
+	const onDeleteClick = (e: React.MouseEvent) => {
+		e.stopPropagation();
+		handleDeleteClick(id);
+	};
 
 	return (
 		<React.Fragment>
@@ -48,11 +65,13 @@ const ReportPreview: React.FC<ReportTypeProps> = ({ data, handleDeleteClick, han
 				<p>
 					Travel companions: {friendsList.length ? friendsList.join(', ') : 'no one'}
 				</p>
+				<RightTopCornerElement>
+					<Button onClick={onDeleteClick}
+									variant="cancel"
+									label="X"
+					/>
+				</RightTopCornerElement>
 			</Article>
-			<Button onClick={() => handleDeleteClick(id)}
-							variant="cancel"
-							label="Delete"
-			/>
 		</React.Fragment>
 	);
 };

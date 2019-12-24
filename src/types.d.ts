@@ -51,7 +51,7 @@ export interface SelectBoxType {
 }
 
 export interface ButtonType {
-	onClick: () => void,
+	onClick: (e: React.MouseEvent) => void,
 	label?: string,
 	variant?: string
 }

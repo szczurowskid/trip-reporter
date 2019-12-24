@@ -10,8 +10,9 @@ import Navigation from "./components/Navigation";
 import styled from 'styled-components';
 
 const Main = styled.main`
+  box-sizing: border-box;
   width: 100vw;
-  margin-left: 1rem;
+  padding-left: 1rem;
 `;
 
 const App: React.FC = () => {

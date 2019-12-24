@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { SelectBoxType } from '../../types';
 import Select from 'react-select';
+import FormFieldWrapper from './FormFieldWrapper';
 
 const SelectBoxLabel= styled.label`
 	display: flex;
@@ -10,7 +11,7 @@ const SelectBoxLabel= styled.label`
 
 const SelectBox: React.FC<SelectBoxType> = ({ name, options, title, value, onChangeInput }) => {
 	return (
-		<div style={{ width: "30vw" }}>
+		<FormFieldWrapper>
 			<SelectBoxLabel><em>{title}</em></SelectBoxLabel>
 			<Select name={name}
 							options={options}
@@ -18,7 +19,7 @@ const SelectBox: React.FC<SelectBoxType> = ({ name, options, title, value, onCha
 							placeholder="Select Country..."
 							value={value}
 							onChange={onChangeInput} />
-		</div>
+		</FormFieldWrapper>
 	);
 };
 

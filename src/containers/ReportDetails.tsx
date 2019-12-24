@@ -18,8 +18,7 @@ const emptyReport = {
 	tripDuration: "",
 	tripDescription: "",
 	friendsList: [],
-	tripDestination: "",
-	id: Date.now()
+	tripDestination: ""
 };
 
 const ReportDetails: React.FC = () => {
@@ -28,11 +27,11 @@ const ReportDetails: React.FC = () => {
 	const countries = useFetchCountries();
 	const isAddMode = id === 'add';
 
-	const [state, setState] = useState(emptyReport);
+	const [state, setState] = useState({ ...emptyReport, id: Date.now() });
 
 	useEffect(() => {
 		if (isAddMode) {
-			setState(emptyReport);
+			setState({ ...emptyReport, id: Date.now() });
 		} else {
 			setState(getSingleReportFromStorage(id));
 		}
