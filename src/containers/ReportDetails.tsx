@@ -63,7 +63,7 @@ const ReportDetails: React.FC = () => {
 			<SelectBox options={countries}
 								 name="country"
 								 value={state.country}
-								 title="Visisted country:"
+								 title="Visited country:"
 								 placeholder="Select Country..."
 								 onChangeInput={handleSelectChange}
 			/>
